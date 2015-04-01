@@ -70,17 +70,17 @@ class AutomationBehavior extends Behavior
                 }elseif($colDetails['type']==='datetime'){
                     $ifoptions=[
                         'type'=>'text',
-                        'class'=>'datetimepick'
+                        'class'=>'form-control datetimepick'
                     ];
                 }elseif($colDetails['type']==='date'){
                     $ifoptions=[
                         'type'=>'text',
-                        'class'=>'datepick'
+                        'class'=>'form-control datepick'
                     ];
                 }elseif($colDetails['type']==='time'){
                     $ifoptions=[
                         'type'=>'text',
-                        'class'=>'timepick'
+                        'class'=>'form-control timepick'
                     ];
                 }
                 $result[$colName]=array_replace_recursive($options,$ifoptions);
