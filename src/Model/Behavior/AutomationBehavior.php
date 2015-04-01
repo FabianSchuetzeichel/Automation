@@ -41,9 +41,14 @@ class AutomationBehavior extends Behavior
 
         //generate associations
         foreach($table->associations()->keys() as $assKey){
-            $associations[$table->association($assKey)->foreignKey()]=[
+            $cond = [];
+            if(array_key_exists($table->association($assKey)->alias(),$filter)){
+                $cond = $filter[$table->association($assKey)->alias()];
+            }
+            $associations[$table->association($assKey)->alias()]=[
                 'name'=>ucfirst($assKey),
-                'association'=>$table->association($assKey)
+                'association'=>$table->association($assKey),
+                'listoptions'=>$table->association($assKey)->find('list')->where($cond)->toArray()
             ];
         }
 
@@ -64,7 +69,7 @@ class AutomationBehavior extends Behavior
                     $ifoptions = [
                         'label'=>['text'=>ucfirst($associations[$colName]['association']->alias())],
                         'placeholder'=>$this->_aliasToPlaceholder($associations[$colName]['association']->alias()),
-                        'options'=>$associations[$colName]['association']->find('list')->toArray()
+                        'options'=>$associations[$colName]['listoptions']
                     ];
                     unset($associations[$colName]);
                 }elseif($colDetails['type']==='datetime'){
@@ -89,11 +94,11 @@ class AutomationBehavior extends Behavior
         }
 
         foreach($associations as $a){
-            if(!in_array($a['association']->foreignKey(),$ignores)&&!in_array($a['name'],$ignores)){
+            if(!in_array($a['name'],$ignores)){
                 $options=[
                     'label'=>['text'=>ucfirst($a['association']->alias())],
                     'placeholder'=>$this->_aliasToPlaceholder($a['association']->alias()),
-                    'options'=>$a['association']->find('list')->toArray(),
+                    'options'=>$a['listoptions'],
                     'multiple'=>true
                 ];
                 $result[lcfirst($a['name']).'._ids']=$options;
