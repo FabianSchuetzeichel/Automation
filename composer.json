@@ -1,5 +1,11 @@
 {
     "name": "fabianschuetzeichel/automation",
+    "authors": [
+      {
+        "name":"Fabian Schützeichel",
+        "email":"fabian.schuetzeichel@gmail.com"
+      }
+    ],
     "description": "Automation plugin for CakePHP",
     "license": "MIT",
     "type": "cakephp-plugin",
