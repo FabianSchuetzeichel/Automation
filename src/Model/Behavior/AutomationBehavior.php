@@ -67,7 +67,7 @@ class AutomationBehavior extends Behavior
                 }else{
 
                 }
-                $result[$colName]['options']=$options;
+                $result[$colName]=$options;
             }
 
         }
@@ -81,7 +81,7 @@ class AutomationBehavior extends Behavior
                     'options'=>$a['association']->find('list')->toArray(),
                     'multiple'=>true
                 ];
-                $result[lcfirst($a['name']).'._ids']['options']=$options;
+                $result[lcfirst($a['name']).'._ids']=$options;
             }
 
         }
