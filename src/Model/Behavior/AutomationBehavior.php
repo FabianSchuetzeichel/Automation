@@ -56,18 +56,32 @@ class AutomationBehavior extends Behavior
                     'label'=>ucfirst($colName),
                     'placeholder'=>$this->_aliasToPlaceholder($colName),
                 ];
+                $ifoptions=[];
                 if(array_key_exists($colName,$associations)){
                     //modify options
-                    $options = [
+                    $ifoptions = [
                         'label'=>ucfirst($associations[$colName]['association']->alias()),
                         'placeholder'=>$this->_aliasToPlaceholder($associations[$colName]['association']->alias()),
                         'options'=>$associations[$colName]['association']->find('list')->toArray()
                     ];
                     unset($associations[$colName]);
-                }else{
-
+                }elseif($colDetails['type']==='datetime'){
+                    $ifoptions=[
+                        'type'=>'text',
+                        'class'=>'datetimepick'
+                    ];
+                }elseif($colDetails['type']==='date'){
+                    $ifoptions=[
+                        'type'=>'text',
+                        'class'=>'datepick'
+                    ];
+                }elseif($colDetails['type']==='time'){
+                    $ifoptions=[
+                        'type'=>'text',
+                        'class'=>'timepick'
+                    ];
                 }
-                $result[$colName]=$options;
+                $result[$colName]=array_replace_recursive($options,$ifoptions);
             }
 
         }
