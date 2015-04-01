@@ -53,14 +53,16 @@ class AutomationBehavior extends Behavior
                 $colDetails=$table->schema()->column($colName);
                 //default options
                 $options=[
-                    'label'=>ucfirst($colName),
+                    'label'=>[
+                        'text'=>ucfirst($colName)
+                    ],
                     'placeholder'=>$this->_aliasToPlaceholder($colName),
                 ];
                 $ifoptions=[];
                 if(array_key_exists($colName,$associations)){
                     //modify options
                     $ifoptions = [
-                        'label'=>ucfirst($associations[$colName]['association']->alias()),
+                        'label'=>['text'=>ucfirst($associations[$colName]['association']->alias())],
                         'placeholder'=>$this->_aliasToPlaceholder($associations[$colName]['association']->alias()),
                         'options'=>$associations[$colName]['association']->find('list')->toArray()
                     ];
