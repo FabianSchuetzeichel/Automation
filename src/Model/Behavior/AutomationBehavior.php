@@ -91,8 +91,7 @@ class AutomationBehavior extends Behavior
         foreach($associations as $a){
             if(!in_array($a['association']->foreignKey(),$ignores)&&!in_array($a['name'],$ignores)){
                 $options=[
-                    #'name'=>'tags',
-                    'label'=>ucfirst($a['association']->alias()),
+                    'label'=>['text'=>ucfirst($a['association']->alias())],
                     'placeholder'=>$this->_aliasToPlaceholder($a['association']->alias()),
                     'options'=>$a['association']->find('list')->toArray(),
                     'multiple'=>true
