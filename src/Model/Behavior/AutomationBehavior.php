@@ -45,10 +45,16 @@ class AutomationBehavior extends Behavior
             if(array_key_exists($table->association($assKey)->alias(),$filter)){
                 $cond = $filter[$table->association($assKey)->alias()];
             }
-            $associations[$table->association($assKey)->alias()]=[
+            if($table->association($assKey)->type()=='manyToOne'){
+                $caller = $table->association($assKey)->foreignKey();
+            }else{
+                $caller = $table->association($assKey)->alias();
+            }
+            $associations[$caller]=[
                 'name'=>ucfirst($assKey),
                 'association'=>$table->association($assKey),
-                'listoptions'=>$table->association($assKey)->find('list')->where($cond)->toArray()
+                'listoptions'=>$table->association($assKey)->find('list')->where($cond)->toArray(),
+                'type'=>$table->association($assKey)->type()
             ];
         }
 
@@ -105,7 +111,7 @@ class AutomationBehavior extends Behavior
             }
 
         }
-        return $result;
+        return $associations;
     }
 
     private function _aliasToPlaceholder($alias){
