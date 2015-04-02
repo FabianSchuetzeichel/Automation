@@ -53,8 +53,7 @@ class AutomationBehavior extends Behavior
             $associations[$caller]=[
                 'name'=>ucfirst($assKey),
                 'association'=>$table->association($assKey),
-                'listoptions'=>$table->association($assKey)->find('list')->where($cond)->toArray(),
-                'type'=>$table->association($assKey)->type()
+                'listoptions'=>$table->association($assKey)->find('list')->where($cond)->toArray()
             ];
         }
 
@@ -111,7 +110,7 @@ class AutomationBehavior extends Behavior
             }
 
         }
-        return $associations;
+        return $result;
     }
 
     private function _aliasToPlaceholder($alias){
