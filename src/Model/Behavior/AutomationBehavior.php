@@ -94,7 +94,7 @@ class AutomationBehavior extends Behavior
                     ];
                 }
                 $result[$colName]=array_replace_recursive($options,$ifoptions);
-            }elseif(in_array($colName,$ignores)&&in_array($colName,$associations)){
+            }elseif(in_array($colName,$ignores)&&array_key_exists($colName,$associations)){
                 unset($associations[$colName]);
             }
 
